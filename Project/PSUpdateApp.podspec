@@ -13,4 +13,20 @@ Pod::Spec.new do |s|
   s.resource = 'PSUpdateApp/Localizations/**'
 
   s.dependency 'AFNetworking','~>1.3.0'
+  s.prefix_header_contents = <<-EOS
+  #import <Availability.h>
+  
+  #define _AFNETWORKING_PIN_SSL_CERTIFICATES_
+  
+  #if __IPHONE_OS_VERSION_MIN_REQUIRED
+    #import <SystemConfiguration/SystemConfiguration.h>
+    #import <MobileCoreServices/MobileCoreServices.h>
+    #import <Security/Security.h>
+  #else
+    #import <SystemConfiguration/SystemConfiguration.h>
+    #import <CoreServices/CoreServices.h>
+    #import <Security/Security.h>
+  #endif
+  EOS
+    end   
 end
